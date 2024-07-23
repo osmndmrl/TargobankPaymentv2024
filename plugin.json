@@ -1,0 +1,16 @@
+{
+    "name": "TargobankPayment",
+    "namespace": "TargobankPayment",
+    "author": "Osman Demirel",
+    "version": "1.0.0",
+    "pluginType": "payment",
+    "require": {
+      "plenty/installer": "^2.0"
+    },
+    "serviceProvider": "TargobankPayment\\Providers\\TargobankPaymentServiceProvider",
+    "dataProviders": [],
+    "routingProviders": [],
+    "events": [],
+    "containers": []
+  }
+  
