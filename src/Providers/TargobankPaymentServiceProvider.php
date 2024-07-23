@@ -3,10 +3,10 @@
 namespace TargobankPayment\Providers;
 
 use Plenty\Plugin\ServiceProvider;
+use Plenty\Modules\Payment\Contracts\PaymentMethodContainer;
 use TargobankPayment\Helper\TargobankHelper;
 use Plenty\Modules\Payment\Events\Checkout\ExecutePayment;
 use Plenty\Modules\Basket\Events\GetPaymentMethodContent;
-use Plenty\Modules\EventProcedures\Services\Entries\ProcedureEntry;
 use Plenty\Plugin\Events\Dispatcher;
 
 class TargobankPaymentServiceProvider extends ServiceProvider
@@ -16,8 +16,13 @@ class TargobankPaymentServiceProvider extends ServiceProvider
         $this->getApplication()->register(TargobankHelper::class);
     }
 
-    public function boot(Dispatcher $eventDispatcher)
+    public function boot(PaymentMethodContainer $payContainer, Dispatcher $eventDispatcher)
     {
+        $payContainer->register('TargobankPayment::TARGOBANK', [
+            'de' => 'TARGOBANK',
+            'en' => 'TARGOBANK'
+        ]);
+
         $eventDispatcher->listen(GetPaymentMethodContent::class, function(GetPaymentMethodContent $event) {
             $this->getApplication()->make(TargobankHelper::class)->getPaymentMethodContent($event);
         });
